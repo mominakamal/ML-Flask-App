@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ML Results</title>
+    <style>
+        body{
+            margin:0;
+            padding:0;
+            font-family:Arial;
+            background:linear-gradient(to right,#4facfe,#00f2fe);
+        }
+        .container{
+            width:90%;
+            margin:auto;
+            padding:30px;
+        }
+        h1{
+            text-align:center;
+            color:white;
+            margin-bottom:40px;
+        }
+        .result-card{
+            background:white;
+            padding:30px;
+            border-radius:15px;
+            margin-bottom:40px;
+            box-shadow:0px 0px 15px rgba(0,0,0,0.3);
+            text-align:center;
+        }
+        h2{
+            color:#333;
+        }
+        p{
+            font-size:20px;
+        }
+        img{
+            width:80%;
+            margin-top:20px;
+            border-radius:10px;
+        }
+        .back-btn{
+            display:block;
+            width:200px;
+            margin:30px auto;
+            padding:15px;
+            text-align:center;
+            background:#1a73e8;
+            color:white;
+            text-decoration:none;
+            border-radius:10px;
+            font-size:18px;
+            font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Machine Learning Results</h1>
+
+        <!-- Linear Regression -->
+        {% if regression_plot %}
+        <div class="result-card">
+            <h2>Linear Regression</h2>
+            <p>Mean Squared Error : {{ mse }}</p>
+            <img src="{{ regression_plot }}">
+        </div>
+        {% endif %}
+
+        <!-- KMeans -->
+        {% if kmeans_plot %}
+        <div class="result-card">
+            <h2>K-Means Clustering</h2>
+            <img src="{{ kmeans_plot }}">
+        </div>
+        {% endif %}
+
+        <!-- DBSCAN -->
+        {% if dbscan_plot %}
+        <div class="result-card">
+            <h2>DBSCAN Clustering</h2>
+            <img src="{{ dbscan_plot }}">
+        </div>
+        {% endif %}
+
+        <!-- CNN Image Classification -->
+        {% if cnn_result %}
+        <div class="result-card">
+            <h2>CNN Image Classification</h2>
+            <p>Predicted Class : {{ cnn_result }}</p>
+            <p>Confidence : {{ cnn_confidence }}%</p>
+        </div>
+        {% endif %}
+
+        <!-- Sentiment Analysis -->
+        {% if sentiment_label %}
+        <div class="result-card">
+            <h2>Sentiment Analysis</h2>
+            <p>Text : {{ sentiment_text }}</p>
+            <p>Sentiment : {{ sentiment_label }}</p>
+            <p>Confidence Score : {{ sentiment_score }}</p>
+        </div>
+        {% endif %}
+
+        <!-- Question Answering -->
+        {% if qa_answer %}
+        <div class="result-card">
+            <h2>Question Answering</h2>
+            <p>Question : {{ qa_question }}</p>
+            <p>Answer : {{ qa_answer }}</p>
+            <p>Confidence Score : {{ qa_score }}</p>
+        </div>
+        {% endif %}
+
+        <!-- Text Generation -->
+        {% if textgen_output %}
+        <div class="result-card">
+            <h2>Text Generation</h2>
+            <p>Prompt : {{ textgen_prompt }}</p>
+            <p>Generated Text : {{ textgen_output }}</p>
+        </div>
+        {% endif %}
+
+        <!-- Translation -->
+        {% if translation_output %}
+        <div class="result-card">
+            <h2>English to Urdu Translation</h2>
+            <p><strong>Input:</strong> {{ translation_input }}</p>
+            <p><strong>Translated:</strong> {{ translation_output }}</p>
+        </div>
+        {% endif %}
+
+        <!-- NER -->
+        {% if ner_entities %}
+        <div class="result-card">
+            <h2>Named Entity Recognition</h2>
+            <p><strong>Input:</strong> {{ ner_input }}</p>
+            <table style="width:100%; border-collapse:collapse; margin-top:15px;">
+                <tr style="background:#1a73e8; color:white;">
+                    <th style="padding:10px;">Word</th>
+                    <th style="padding:10px;">Entity</th>
+                    <th style="padding:10px;">Confidence</th>
+                </tr>
+                {% for e in ner_entities %}
+                <tr style="border-bottom:1px solid #ddd;">
+                    <td style="padding:10px;">{{ e.word }}</td>
+                    <td style="padding:10px;">{{ e.entity }}</td>
+                    <td style="padding:10px;">{{ e.score }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+
+        <!-- Apriori -->
+        {% if apriori_itemsets %}
+        <div class="result-card">
+            <h2>Frequent Itemsets</h2>
+            <table style="width:100%; border-collapse:collapse; margin-top:15px;">
+                <tr style="background:#d35400; color:white;">
+                    <th style="padding:10px;">Itemset</th>
+                    <th style="padding:10px;">Support</th>
+                </tr>
+                {% for item in apriori_itemsets %}
+                <tr style="border-bottom:1px solid #ddd;">
+                    <td style="padding:10px;">{{ item.itemset }}</td>
+                    <td style="padding:10px;">{{ item.support }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <h2 style="margin-top:30px;">Association Rules</h2>
+            <table style="width:100%; border-collapse:collapse; margin-top:15px;">
+                <tr style="background:#d35400; color:white;">
+                    <th style="padding:10px;">Antecedents</th>
+                    <th style="padding:10px;">Consequents</th>
+                    <th style="padding:10px;">Support</th>
+                    <th style="padding:10px;">Confidence</th>
+                    <th style="padding:10px;">Lift</th>
+                </tr>
+                {% for rule in apriori_rules %}
+                <tr style="border-bottom:1px solid #ddd;">
+                    <td style="padding:10px;">{{ rule.antecedents }}</td>
+                    <td style="padding:10px;">{{ rule.consequents }}</td>
+                    <td style="padding:10px;">{{ rule.support }}</td>
+                    <td style="padding:10px;">{{ rule.confidence }}</td>
+                    <td style="padding:10px;">{{ rule.lift }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        {% endif %}
+
+        {% if apriori_message %}
+        <div class="result-card">
+            <h2>Apriori Association Rules</h2>
+            <p style="color:red;">{{ apriori_message }}</p>
+        </div>
+        {% endif %}
+
+        <a href="/" class="back-btn">Go Back</a>
+
+    </div>
+</body>
+</html>

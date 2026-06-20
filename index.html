@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Machine Learning Web App</title>
+    <style>
+        body{
+            margin:0;
+            padding:0;
+            font-family:Arial;
+            background:linear-gradient(to right,#4facfe,#00f2fe);
+        }
+        .main{
+            width:90%;
+            margin:auto;
+            padding:30px;
+        }
+        h1{
+            text-align:center;
+            color:white;
+            margin-bottom:40px;
+        }
+        .card-container{
+            display:flex;
+            justify-content:space-around;
+            flex-wrap:wrap;
+        }
+        .card{
+            background:white;
+            width:300px;
+            padding:25px;
+            margin:20px;
+            border-radius:15px;
+            box-shadow:0px 0px 15px rgba(0,0,0,0.3);
+            text-align:center;
+        }
+        h2{
+            color:#333;
+            margin-bottom:20px;
+        }
+        input[type=file]{
+            margin:20px 0;
+        }
+        input[type=text], textarea{
+            width:100%;
+            padding:8px;
+            margin:10px 0;
+            border:1px solid #ccc;
+            border-radius:5px;
+            font-size:14px;
+            box-sizing:border-box;
+        }
+        textarea{
+            height:80px;
+            resize:vertical;
+        }
+        .btn{
+            width:100%;
+            padding:12px;
+            border:none;
+            border-radius:8px;
+            color:white;
+            font-size:16px;
+            font-weight:bold;
+            cursor:pointer;
+        }
+        .lr-btn{
+            background:#ff6b6b;
+        }
+        .k-btn{
+            background:#4ecdc4;
+        }
+        .d-btn{
+            background:#1a73e8;
+        }
+        .cnn-btn{
+            background:#9b59b6;
+        }
+        .sa-btn{
+            background:#e67e22;
+        }
+        .qa-btn{
+            background:#27ae60;
+        }
+        .tg-btn{
+            background:#e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <h1>Machine Learning CSV Analyzer</h1>
+        <div class="card-container">
+            <!-- Linear Regression -->
+            <div class="card">
+                <h2>Linear Regression</h2>
+                <form action="/linear_regression"
+                      method="POST"
+                      enctype="multipart/form-data">
+                    <input type="file"
+                           name="file"
+                           accept=".csv"
+                           required>
+                    <button type="submit" class="btn lr-btn">
+                        Upload CSV
+                    </button>
+                </form>
+            </div>
+            <!-- KMeans -->
+            <div class="card">
+                <h2>K-Means Clustering</h2>
+                <form action="/kmeans"
+                      method="POST"
+                      enctype="multipart/form-data">
+                    <input type="file"
+                           name="file"
+                           accept=".csv"
+                           required>
+                    <button type="submit" class="btn k-btn">
+                        Upload CSV
+                    </button>
+                </form>
+            </div>
+            <!-- DBSCAN -->
+            <div class="card">
+                <h2>DBSCAN Clustering</h2>
+                <form action="/dbscan"
+                      method="POST"
+                      enctype="multipart/form-data">
+                    <input type="file"
+                           name="file"
+                           accept=".csv"
+                           required>
+                    <button type="submit" class="btn d-btn">
+                        Upload CSV
+                    </button>
+                </form>
+            </div>
+           
+            <!-- CNN Image Classification -->
+            <div class="card">
+                <h2>CNN Image Classification</h2>
+                <form action="/cnn"
+                      method="POST"
+                      enctype="multipart/form-data">
+                    <input type="file"
+                           name="image"
+                           accept="image/*"
+                           required>
+                    <button type="submit" class="btn cnn-btn">
+                        Upload Image
+                    </button>
+                </form>
+            </div>
+            <!-- Sentiment Analysis -->
+            <div class="card">
+                <h2>Sentiment Analysis</h2>
+                <form action="/sentiment"
+                      method="POST">
+                    <input type="text"
+                           name="text_input"
+                           placeholder="Enter text here..."
+                           required>
+                    <button type="submit" class="btn sa-btn">
+                        Analyze Sentiment
+                    </button>
+                </form>
+            </div>
+            <!-- Question Answering -->
+            <div class="card">
+                <h2>Question Answering</h2>
+                <form action="/qa"
+                      method="POST">
+                    <textarea name="context"
+                              placeholder="Enter context paragraph..."
+                              required></textarea>
+                    <input type="text"
+                           name="question"
+                           placeholder="Enter your question..."
+                           required>
+                    <button type="submit" class="btn qa-btn">
+                        Get Answer
+                    </button>
+                </form>
+            </div>
+            <!-- Text Generation -->
+            <div class="card">
+                <h2>Text Generation</h2>
+                <form action="/textgen"
+                      method="POST">
+                    <input type="text"
+                           name="prompt"
+                           placeholder="Enter prompt..."
+                           required>
+                    <button type="submit" class="btn tg-btn">
+                        Generate Text
+                    </button>
+                </form>
+            </div>
+<!-- Translation -->
+<div class="card">
+    <h2>English to Urdu Translation</h2>
+    <form action="/translate" method="POST">
+        <textarea name="text_input"
+                  placeholder="Enter English text..."
+                  required></textarea>
+        <button type="submit" class="btn" style="background:#8e44ad;">
+            Translate
+        </button>
+    </form>
+</div>
+
+<!-- NER -->
+<div class="card">
+    <h2>Named Entity Recognition</h2>
+    <form action="/ner" method="POST">
+        <textarea name="text_input"
+                  placeholder="e.g. Ali lives in Lahore..."
+                  required></textarea>
+        <button type="submit" class="btn" style="background:#16a085;">
+            Find Entities
+        </button>
+    </form>
+</div>
+
+<!-- Apriori -->
+<div class="card">
+    <h2>Apriori Association Rules</h2>
+    <form action="/apriori" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".csv" required>
+        <input type="text" name="min_support"
+               placeholder="Min Support (default: 0.5)">
+        <input type="text" name="min_confidence"
+               placeholder="Min Confidence (default: 0.7)">
+        <button type="submit" class="btn" style="background:#d35400;">
+            Generate Rules
+        </button>
+    </form>
+</div>
+        </div>
+    </div>
+</body>
+</html>
